@@ -22544,37 +22544,199 @@ cljs.core.special_symbol_QMARK_ = function special_symbol_QMARK_(x) {
   "recur", "recur", -1532142362, null), null, new cljs.core.Symbol(null, ".", ".", -1640531481, null), null, new cljs.core.Symbol(null, "ns", "ns", -1640528002, null), null, new cljs.core.Symbol(null, "do", "do", -1640528316, null), null, new cljs.core.Symbol(null, "fn*", "fn*", -1640430053, null), null, new cljs.core.Symbol(null, "throw", "throw", -1530191713, null), null, new cljs.core.Symbol(null, "letfn*", "letfn*", 1548249632, null), null, new cljs.core.Symbol(null, "js*", "js*", -1640426054, 
   null), null, new cljs.core.Symbol(null, "defrecord*", "defrecord*", 774272013, null), null, new cljs.core.Symbol(null, "let*", "let*", -1637213400, null), null, new cljs.core.Symbol(null, "loop*", "loop*", -1537374273, null), null, new cljs.core.Symbol(null, "try", "try", -1640416396, null), null, new cljs.core.Symbol(null, "if", "if", -1640528170, null), null, new cljs.core.Symbol(null, "def", "def", -1640432194, null), null], null), null), x)
 };
+goog.provide("butterfly.d3");
+goog.require("cljs.core");
+butterfly.d3.attrs_BANG_ = function attrs_BANG_(e, m) {
+  if(cljs.core.empty_QMARK_.call(null, m)) {
+    return e
+  }else {
+    var p = cljs.core.first.call(null, m);
+    return attrs_BANG_.call(null, e.attr(cljs.core.name.call(null, cljs.core.first.call(null, p)), cljs.core.second.call(null, p)), cljs.core.rest.call(null, m))
+  }
+};
+butterfly.d3.style_BANG_ = function style_BANG_(e, m) {
+  if(cljs.core.empty_QMARK_.call(null, m)) {
+    return e
+  }else {
+    var p = cljs.core.first.call(null, m);
+    return style_BANG_.call(null, e.style(cljs.core.name.call(null, cljs.core.first.call(null, p)), cljs.core.second.call(null, p)), cljs.core.rest.call(null, m))
+  }
+};
+butterfly.d3.svg_BANG_ = function svg_BANG_(parent, w, h) {
+  return butterfly.d3.attrs_BANG_.call(null, d3.select.call(null, parent).append("svg"), new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "width", "width", 1127031096), w, new cljs.core.Keyword(null, "height", "height", 4087841945), h], null))
+};
+butterfly.d3.rect_BANG_ = function rect_BANG_(parent_svg, m) {
+  return butterfly.d3.attrs_BANG_.call(null, parent_svg.append("rect"), m)
+};
+butterfly.d3.circle_BANG_ = function circle_BANG_(parent_svg, m) {
+  return butterfly.d3.attrs_BANG_.call(null, parent_svg.append("circle"), m)
+};
 goog.provide("butterfly.main");
 goog.require("cljs.core");
-butterfly.main.greet = function greet(n) {
-  return alert([cljs.core.str("Hello "), cljs.core.str(n)].join(""))
+goog.require("butterfly.d3");
+goog.require("butterfly.d3");
+butterfly.main.width = 40;
+butterfly.main.height = 30;
+butterfly.main.sq_size = 20;
+butterfly.main.main_svg = butterfly.d3.svg_BANG_.call(null, "body", butterfly.main.width * butterfly.main.sq_size, butterfly.main.height * butterfly.main.sq_size);
+cljs.core.rand_int.call(null, 256);
+butterfly.main.random_colour = function random_colour() {
+  return[cljs.core.str("#"), cljs.core.str(cljs.core.apply.call(null, cljs.core.str, cljs.core.map.call(null, function(p1__5700_SHARP_) {
+    return p1__5700_SHARP_.toString(16)
+  }, new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.rand_int.call(null, 256), cljs.core.rand_int.call(null, 256), cljs.core.rand_int.call(null, 256)], null))))].join("")
 };
-goog.exportSymbol("butterfly.main.greet", butterfly.main.greet);
-butterfly.main.attrs = function attrs(e, m) {
-  if(cljs.core.empty_QMARK_.call(null, m)) {
-    return e
-  }else {
-    var p = cljs.core.first.call(null, m);
-    return attrs.call(null, e.attr(cljs.core.name.call(null, cljs.core.first.call(null, p)), cljs.core.second.call(null, p)), cljs.core.rest.call(null, m))
+butterfly.main.canvas = function() {
+  var seq__5701 = cljs.core.seq.call(null, cljs.core.range.call(null, 0, butterfly.main.height));
+  var chunk__5702 = null;
+  var count__5703 = 0;
+  var i__5704 = 0;
+  while(true) {
+    if(i__5704 < count__5703) {
+      var j = cljs.core._nth.call(null, chunk__5702, i__5704);
+      var seq__5705_5713 = cljs.core.seq.call(null, cljs.core.range.call(null, 0, butterfly.main.width));
+      var chunk__5706_5714 = null;
+      var count__5707_5715 = 0;
+      var i__5708_5716 = 0;
+      while(true) {
+        if(i__5708_5716 < count__5707_5715) {
+          var i_5717 = cljs.core._nth.call(null, chunk__5706_5714, i__5708_5716);
+          new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "element", "element", 3646034542), butterfly.d3.rect_BANG_.call(null, butterfly.main.main_svg, new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null, "x", "x", 1013904362), i_5717 * butterfly.main.sq_size, new cljs.core.Keyword(null, "y", "y", 1013904363), j * butterfly.main.sq_size, new cljs.core.Keyword(null, "width", "width", 1127031096), butterfly.main.sq_size, new cljs.core.Keyword(null, "height", 
+          "height", 4087841945), butterfly.main.sq_size, new cljs.core.Keyword(null, "fill", "fill", 1017047285), butterfly.main.random_colour.call(null)], null)), new cljs.core.Keyword(null, "alive", "alive", 1106807871), true], null);
+          var G__5718 = seq__5705_5713;
+          var G__5719 = chunk__5706_5714;
+          var G__5720 = count__5707_5715;
+          var G__5721 = i__5708_5716 + 1;
+          seq__5705_5713 = G__5718;
+          chunk__5706_5714 = G__5719;
+          count__5707_5715 = G__5720;
+          i__5708_5716 = G__5721;
+          continue
+        }else {
+          var temp__4092__auto___5722 = cljs.core.seq.call(null, seq__5705_5713);
+          if(temp__4092__auto___5722) {
+            var seq__5705_5723__$1 = temp__4092__auto___5722;
+            if(cljs.core.chunked_seq_QMARK_.call(null, seq__5705_5723__$1)) {
+              var c__4015__auto___5724 = cljs.core.chunk_first.call(null, seq__5705_5723__$1);
+              var G__5725 = cljs.core.chunk_rest.call(null, seq__5705_5723__$1);
+              var G__5726 = c__4015__auto___5724;
+              var G__5727 = cljs.core.count.call(null, c__4015__auto___5724);
+              var G__5728 = 0;
+              seq__5705_5713 = G__5725;
+              chunk__5706_5714 = G__5726;
+              count__5707_5715 = G__5727;
+              i__5708_5716 = G__5728;
+              continue
+            }else {
+              var i_5729 = cljs.core.first.call(null, seq__5705_5723__$1);
+              new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "element", "element", 3646034542), butterfly.d3.rect_BANG_.call(null, butterfly.main.main_svg, new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null, "x", "x", 1013904362), i_5729 * butterfly.main.sq_size, new cljs.core.Keyword(null, "y", "y", 1013904363), j * butterfly.main.sq_size, new cljs.core.Keyword(null, "width", "width", 1127031096), butterfly.main.sq_size, new cljs.core.Keyword(null, "height", 
+              "height", 4087841945), butterfly.main.sq_size, new cljs.core.Keyword(null, "fill", "fill", 1017047285), butterfly.main.random_colour.call(null)], null)), new cljs.core.Keyword(null, "alive", "alive", 1106807871), true], null);
+              var G__5730 = cljs.core.next.call(null, seq__5705_5723__$1);
+              var G__5731 = null;
+              var G__5732 = 0;
+              var G__5733 = 0;
+              seq__5705_5713 = G__5730;
+              chunk__5706_5714 = G__5731;
+              count__5707_5715 = G__5732;
+              i__5708_5716 = G__5733;
+              continue
+            }
+          }else {
+          }
+        }
+        break
+      }
+      var G__5734 = seq__5701;
+      var G__5735 = chunk__5702;
+      var G__5736 = count__5703;
+      var G__5737 = i__5704 + 1;
+      seq__5701 = G__5734;
+      chunk__5702 = G__5735;
+      count__5703 = G__5736;
+      i__5704 = G__5737;
+      continue
+    }else {
+      var temp__4092__auto__ = cljs.core.seq.call(null, seq__5701);
+      if(temp__4092__auto__) {
+        var seq__5701__$1 = temp__4092__auto__;
+        if(cljs.core.chunked_seq_QMARK_.call(null, seq__5701__$1)) {
+          var c__4015__auto__ = cljs.core.chunk_first.call(null, seq__5701__$1);
+          var G__5738 = cljs.core.chunk_rest.call(null, seq__5701__$1);
+          var G__5739 = c__4015__auto__;
+          var G__5740 = cljs.core.count.call(null, c__4015__auto__);
+          var G__5741 = 0;
+          seq__5701 = G__5738;
+          chunk__5702 = G__5739;
+          count__5703 = G__5740;
+          i__5704 = G__5741;
+          continue
+        }else {
+          var j = cljs.core.first.call(null, seq__5701__$1);
+          var seq__5709_5742 = cljs.core.seq.call(null, cljs.core.range.call(null, 0, butterfly.main.width));
+          var chunk__5710_5743 = null;
+          var count__5711_5744 = 0;
+          var i__5712_5745 = 0;
+          while(true) {
+            if(i__5712_5745 < count__5711_5744) {
+              var i_5746 = cljs.core._nth.call(null, chunk__5710_5743, i__5712_5745);
+              new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "element", "element", 3646034542), butterfly.d3.rect_BANG_.call(null, butterfly.main.main_svg, new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null, "x", "x", 1013904362), i_5746 * butterfly.main.sq_size, new cljs.core.Keyword(null, "y", "y", 1013904363), j * butterfly.main.sq_size, new cljs.core.Keyword(null, "width", "width", 1127031096), butterfly.main.sq_size, new cljs.core.Keyword(null, "height", 
+              "height", 4087841945), butterfly.main.sq_size, new cljs.core.Keyword(null, "fill", "fill", 1017047285), butterfly.main.random_colour.call(null)], null)), new cljs.core.Keyword(null, "alive", "alive", 1106807871), true], null);
+              var G__5747 = seq__5709_5742;
+              var G__5748 = chunk__5710_5743;
+              var G__5749 = count__5711_5744;
+              var G__5750 = i__5712_5745 + 1;
+              seq__5709_5742 = G__5747;
+              chunk__5710_5743 = G__5748;
+              count__5711_5744 = G__5749;
+              i__5712_5745 = G__5750;
+              continue
+            }else {
+              var temp__4092__auto___5751__$1 = cljs.core.seq.call(null, seq__5709_5742);
+              if(temp__4092__auto___5751__$1) {
+                var seq__5709_5752__$1 = temp__4092__auto___5751__$1;
+                if(cljs.core.chunked_seq_QMARK_.call(null, seq__5709_5752__$1)) {
+                  var c__4015__auto___5753 = cljs.core.chunk_first.call(null, seq__5709_5752__$1);
+                  var G__5754 = cljs.core.chunk_rest.call(null, seq__5709_5752__$1);
+                  var G__5755 = c__4015__auto___5753;
+                  var G__5756 = cljs.core.count.call(null, c__4015__auto___5753);
+                  var G__5757 = 0;
+                  seq__5709_5742 = G__5754;
+                  chunk__5710_5743 = G__5755;
+                  count__5711_5744 = G__5756;
+                  i__5712_5745 = G__5757;
+                  continue
+                }else {
+                  var i_5758 = cljs.core.first.call(null, seq__5709_5752__$1);
+                  new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "element", "element", 3646034542), butterfly.d3.rect_BANG_.call(null, butterfly.main.main_svg, new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null, "x", "x", 1013904362), i_5758 * butterfly.main.sq_size, new cljs.core.Keyword(null, "y", "y", 1013904363), j * butterfly.main.sq_size, new cljs.core.Keyword(null, "width", "width", 1127031096), butterfly.main.sq_size, new cljs.core.Keyword(null, 
+                  "height", "height", 4087841945), butterfly.main.sq_size, new cljs.core.Keyword(null, "fill", "fill", 1017047285), butterfly.main.random_colour.call(null)], null)), new cljs.core.Keyword(null, "alive", "alive", 1106807871), true], null);
+                  var G__5759 = cljs.core.next.call(null, seq__5709_5752__$1);
+                  var G__5760 = null;
+                  var G__5761 = 0;
+                  var G__5762 = 0;
+                  seq__5709_5742 = G__5759;
+                  chunk__5710_5743 = G__5760;
+                  count__5711_5744 = G__5761;
+                  i__5712_5745 = G__5762;
+                  continue
+                }
+              }else {
+              }
+            }
+            break
+          }
+          var G__5763 = cljs.core.next.call(null, seq__5701__$1);
+          var G__5764 = null;
+          var G__5765 = 0;
+          var G__5766 = 0;
+          seq__5701 = G__5763;
+          chunk__5702 = G__5764;
+          count__5703 = G__5765;
+          i__5704 = G__5766;
+          continue
+        }
+      }else {
+        return null
+      }
+    }
+    break
   }
-};
-butterfly.main.style = function style(e, m) {
-  if(cljs.core.empty_QMARK_.call(null, m)) {
-    return e
-  }else {
-    var p = cljs.core.first.call(null, m);
-    return style.call(null, e.style(cljs.core.name.call(null, cljs.core.first.call(null, p)), cljs.core.second.call(null, p)), cljs.core.rest.call(null, m))
-  }
-};
-butterfly.main.svg = function svg(parent, w, h) {
-  return butterfly.main.attrs.call(null, d3.select.call(null, parent).append("svg"), new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "width", "width", 1127031096), w, new cljs.core.Keyword(null, "height", "height", 4087841945), h], null))
-};
-butterfly.main.rect = function rect(parent_svg, m) {
-  return butterfly.main.attrs.call(null, parent_svg.append("rect"), m)
-};
-butterfly.main.circle = function circle(parent_svg, m) {
-  return butterfly.main.attrs.call(null, parent_svg.append("circle"), m)
-};
-butterfly.main.main = butterfly.main.svg.call(null, "body", 800, 600);
-butterfly.main.rect.call(null, butterfly.main.main, new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null, "x", "x", 1013904362), 50, new cljs.core.Keyword(null, "y", "y", 1013904363), 50, new cljs.core.Keyword(null, "width", "width", 1127031096), 200, new cljs.core.Keyword(null, "height", "height", 4087841945), 200, new cljs.core.Keyword(null, "fill", "fill", 1017047285), "#f00"], null));
-butterfly.main.circle.call(null, butterfly.main.main, new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null, "cx", "cx", 1013907431), 130, new cljs.core.Keyword(null, "cy", "cy", 1013907432), 130, new cljs.core.Keyword(null, "r", "r", 1013904356), 50, new cljs.core.Keyword(null, "fill", "fill", 1017047285), "#0f0"], null));
+}();

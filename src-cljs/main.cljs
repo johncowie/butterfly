@@ -1,30 +1,33 @@
-(ns butterfly.main)
+(ns butterfly.main
+  (:require [butterfly.d3 :refer [svg! rect! circle!]]))
 
-(defn ^:export greet [n]
-  (js/alert (str "Hello " n)))
+;; GAME OF LIFE
 
-(defn attrs [e m]
-  (if (empty? m)
-    e
-    (let [p (first m)]
-      (attrs (. e attr (name (first p)) (second p)) (rest m)))))
+(def width 40)
+(def height 30)
+(def sq-size 20)
 
-(defn style [e m]
-  (if (empty? m)
-    e
-    (let [p (first m)]
-      (style (. e style (name (first p)) (second p)) (rest m)))))
 
-(defn svg [parent w h]
-  (attrs (. (d3/select parent) append "svg") {:width w :height h}))
+(def main-svg (svg! "body" (* width sq-size) (* height sq-size)))
 
-(defn rect [parent-svg m]
-  (attrs (. parent-svg append "rect") m))
+(rand-int 256)
 
-(defn circle [parent-svg m]
-  (attrs (. parent-svg append "circle") m))
+(defn random-colour []
+  (str "#" (apply str (map #(. % toString 16) [(rand-int 256) (rand-int 256) (rand-int 256)]))))
 
-(def main (svg "body" 800 600))
+(def canvas
+  (doseq [j (range 0 height)]
+    (doseq [i (range 0 width)]
+      {:element (rect! main-svg {:x (* i sq-size)
+                                 :y (* j sq-size)
+                                 :width sq-size
+                                 :height sq-size
+                                 :fill (random-colour)})
+       :alive true
+       }
+      )
+    )
+  )
 
-(rect main {:x 50 :y 50 :width 200 :height 200 :fill "#f00"})
-(circle main {:cx 130 :cy 130 :r 50 :fill "#0f0"})
+;(rect! main {:x 50 :y 50 :width 200 :height 200 :fill "#00f"})
+;(circle! main {:cx 130 :cy 130 :r 50 :fill "#0f0"})
